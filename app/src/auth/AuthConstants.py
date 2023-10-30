@@ -1,0 +1,2 @@
+REGULAR = 1
+ADMIN = 2
