@@ -16,11 +16,8 @@ def test_create_recipe_review(authorized_client):
                                                                     "recipe_id":3})
 
 """
-##### USE authorized_client_2 #####
-
 #recipe_reviews_data = [(2),(1)]
 
-# I CANT REVIEW MY RECIPE
 def test_create_recipe_review(authorized_client):
     response = authorized_client.post("/api/reviews/recipes", json={"rating":7, 
                                                                     "text":"just some text to test", 
@@ -28,7 +25,7 @@ def test_create_recipe_review(authorized_client):
     print(response)
     assert response.status_code == status.HTTP_201_CREATED
 
-=@pytest.mark.parametrize("recipe_id", recipe_reviews_data)
+@pytest.mark.parametrize("recipe_id", recipe_reviews_data)
 def test_get_recipe_reviews(authorized_client, recipe_id):
     response = authorized_client.get(f"/api/reviews/recipes/{recipe_id}")
     assert response.status_code == status.HTTP_200_OK
