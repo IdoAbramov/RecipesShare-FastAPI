@@ -6,14 +6,14 @@ from app.src.favorites import FavoritesSchemas, FavoritesModels, FavoritesExcept
 class FavoritesServices():
 
     def __init__(self):
-        pass
+        self.favorites_repo = FavoritesRepository()
 
     def get_all_favorites_service(self, 
                                   user_id: int, 
                                   limit: int, 
                                   skip: int) -> List[FavoritesModels.Favorite]:
-        favorites_repo = FavoritesRepository()
-        favorite_recipes = favorites_repo.get_all_user_favorites_data(user_id, limit, skip)
+        #favorites_repo = FavoritesRepository()
+        favorite_recipes = self.favorites_repo.get_all_user_favorites_data(user_id, limit, skip)
         if not favorite_recipes:
             raise FavoritesExceptions.FavoritesNotFound(user_id)
         return favorite_recipes

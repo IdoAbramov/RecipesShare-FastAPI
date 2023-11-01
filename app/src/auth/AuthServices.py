@@ -7,11 +7,10 @@ from app.src.auth import AuthUtils, AuthModels, AuthExceptions
 class AuthServices():
 
     def __init__(self):
-        pass
+        self.auth_repo = AuthRepository()
 
     def login_service(self, user_creds: OAuth2PasswordRequestForm) -> str:
-        auth_repo = AuthRepository()
-        user = auth_repo.get_user_data_by_username(user_creds.username)
+        user = self.auth_repo.get_user_data_by_username(user_creds.username)
 
         if not user:
             raise AuthExceptions.InvalidCredentials()
@@ -24,6 +23,5 @@ class AuthServices():
         return access_token
 
     def logout_service(self, access_token: str) -> None:
-        auth_repo = AuthRepository()
         blacklist_token = AuthModels.TokensBlacklist(access_token=access_token)
-        auth_repo.create_blacklist_token_data(blacklist_token)
+        self.auth_repo.create_blacklist_token_data(blacklist_token)
