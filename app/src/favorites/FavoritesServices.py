@@ -12,7 +12,6 @@ class FavoritesServices():
                                   user_id: int, 
                                   limit: int, 
                                   skip: int) -> List[FavoritesModels.Favorite]:
-        #favorites_repo = FavoritesRepository()
         favorite_recipes = self.favorites_repo.get_all_user_favorites_data(user_id, limit, skip)
         if not favorite_recipes:
             raise FavoritesExceptions.FavoritesNotFound(user_id)
