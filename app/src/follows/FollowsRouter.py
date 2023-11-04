@@ -23,7 +23,7 @@ async def get_user_followers(user_id: int,
             response_model=List[UsersSchemas.UserReturn])
 async def get_user_followings(user_id: int, 
                               skip: int = FollowsConstants.SKIP_DEFAULT,
-                              limit: int = FollowsConstants.LIMIT_DEFAULT,                              
+                              limit: int = FollowsConstants.LIMIT_DEFAULT,
                               current_user: UsersModels.User = Depends(oauth2.get_current_user)):
     users_list = FollowsServices().get_all_user_followings_service(user_id, limit, skip)
     return users_list
@@ -48,8 +48,7 @@ async def follow_user(follow_user: FollowsSchemas.UserFollowCreate,
 async def unfollow_user(follow_user: FollowsSchemas.UserFollowDelete,
                         current_user: UsersModels.User = Depends(oauth2.get_current_user)):
     FollowsServices().delete_exist_follow_user_service(current_user.id, follow_user.user_id)
-    return Response(status_code=status.HTTP_200_OK, 
-    content=f"User with id <{current_user.id}> successfully unfollows user with id <{follow_user.user_id}>")
+    return Response(status_code=status.HTTP_204_NO_CONTENT) 
 
 @router.post("/tags")
 async def follow_tag(tag: FollowsSchemas.TagFollowCreate, 
@@ -62,6 +61,5 @@ async def follow_tag(tag: FollowsSchemas.TagFollowCreate,
 async def unfollow_tag(tag: FollowsSchemas.TagFollowDelete,
                        current_user: UsersModels.User = Depends(oauth2.get_current_user)):
     FollowsServices().delete_exist_follow_tag_service(current_user.id, tag.name)
-    return Response(status_code=status.HTTP_200_OK, 
-                    content=f"User with id <{current_user.id}> successfully unfollows tag <{tag.name}>")
+    return Response(status_code=status.HTTP_204_NO_CONTENT) 
 

@@ -44,9 +44,7 @@ async def update_recipe_review_by_id(review: ReviewsSchemas.ReviewUpdate,
 async def delete_recipe_review_by_id(review: ReviewsSchemas.ReviewDelete, 
                                      current_user: UsersModels.User = Depends(oauth2.get_current_user)):
      ReviewsServices().delete_review_service(current_user.id, review.recipe_id)          
-     return Response(status_code=status.HTTP_200_OK, 
-          content=f"Review of recipe with id:{review.recipe_id} by user with id:{current_user.id} has been deleted successfully.")
-
+     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @router.get("/recipes/{recipe_id}/average-rating", 
             response_model=ReviewsSchemas.ReviewAverageRating)

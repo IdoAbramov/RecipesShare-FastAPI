@@ -32,4 +32,3 @@ async def delete_exist_favorite(recipe_id: int,
                                 current_user: UsersModels.User = Depends(oauth2.get_current_user)):
     FavoritesServices().remove_favorite_recipe_service(recipe_id, current_user.id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
-                    #content=f"Recipe with id <{favorite.recipe_id}> removed succssfully from user with id <{current_user.id}> favorites")

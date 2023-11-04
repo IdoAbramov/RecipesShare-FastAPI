@@ -70,7 +70,6 @@ class FollowsRepository():
         try:
             follow_query.delete()
             self.db.commit()
-        
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FollowsExceptions.FollowDatabaseError()

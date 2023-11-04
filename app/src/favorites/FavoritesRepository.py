@@ -45,7 +45,6 @@ class FavoritesRepository():
         try:
             favorite_query.delete()
             self.db.commit()
-        
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FavoritesExceptions.FavoritesDatabaseError()

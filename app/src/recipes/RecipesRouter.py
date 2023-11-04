@@ -75,4 +75,3 @@ async def delete_recipe(recipe_id: int,
                         current_user: UsersModels.User = Depends(oauth2.get_current_user)) -> Response:
     recipe_id = RecipesServices().delete_recipe_service(recipe_id, current_user.id)
     return Response(status_code=status.HTTP_204_NO_CONTENT) 
-                    #content=f"Recipe with id <{recipe_id}> deleted successfully.")
