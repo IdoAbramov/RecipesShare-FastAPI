@@ -4,14 +4,14 @@ from app.src.recipes.RecipesServices import RecipesServices
 from app.src.recipes import RecipesSchemas
 
 # To notice and parametrize the: user_id in the service, the recipe_id in the post request
-def test_create_recipe_review(authorized_client):
+def test_create_recipe_review(authorized_client_1):
     recipe = RecipesSchemas.RecipeCreate(title="recipe test",
                                          additional_text="additional text for recipe",
                                          ingredients=[RecipesSchemas.IngredientCreate(name="test", amount="1", unit="test")],
                                          instructions=[RecipesSchemas.InstructionCreate(text="1 step for test")],
                                          tags=[RecipesSchemas.TagCreate(tag="test")])
     RecipesServices().create_new_recipe_service(recipe, 1)
-    response = authorized_client.post("/api/reviews/recipes", json={"rating":7, 
+    response = authorized_client_1.post("/api/reviews/recipes", json={"rating":7, 
                                                                     "text":"just some text to test", 
                                                                     "recipe_id":3})
 

@@ -79,8 +79,8 @@ recipes_delete_data = [(1)]
 @pytest.mark.order(2)
 @pytest.mark.parametrize("title, additional_text, ingredients, instructions, tags", 
                          recipes_create_data)
-def test_create_new_recipe(authorized_client, title, additional_text, ingredients, instructions, tags):
-    response = authorized_client.post("/api/recipes", json={"title":title,
+def test_create_new_recipe(authorized_client_1, title, additional_text, ingredients, instructions, tags):
+    response = authorized_client_1.post("/api/recipes", json={"title":title,
                                                             "additional_text":additional_text,
                                                             "ingredients":ingredients,
                                                             "instructions":instructions,
@@ -88,30 +88,30 @@ def test_create_new_recipe(authorized_client, title, additional_text, ingredient
     #print(response.json())
     assert response.status_code == status.HTTP_201_CREATED
 
-def test_get_all_recipes(authorized_client):
-    response = authorized_client.get("/api/recipes")
+def test_get_all_recipes(authorized_client_1):
+    response = authorized_client_1.get("/api/recipes")
     #print(response.json())
     assert response.status_code == status.HTTP_200_OK
 
-def test_get_recipe_by_id(authorized_client):
-    response = authorized_client.get("/api/recipes/2")
+def test_get_recipe_by_id(authorized_client_1):
+    response = authorized_client_1.get("/api/recipes/2")
     #print(response.json())
     assert response.status_code == status.HTTP_200_OK
 
-def test_get_current_user_recipes(authorized_client):
-    response = authorized_client.get("/api/recipes/users/me")
+def test_get_current_user_recipes(authorized_client_1):
+    response = authorized_client_1.get("/api/recipes/users/me")
     #print(response.json())
     assert response.status_code == status.HTTP_200_OK
 
-def test_get_recipes_by_tag(authorized_client):
-    response = authorized_client.get("/api/recipes/tags/tasty")
+def test_get_recipes_by_tag(authorized_client_1):
+    response = authorized_client_1.get("/api/recipes/tags/tasty")
     #print(response.json())
     assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.parametrize("id, title, additional_text, ingredients, instructions, tags", 
                          recipes_update_data)
-def test_update_recipe(authorized_client, id, title, additional_text, ingredients, instructions, tags):
-    response = authorized_client.put("/api/recipes", json={"id":id,
+def test_update_recipe(authorized_client_1, id, title, additional_text, ingredients, instructions, tags):
+    response = authorized_client_1.put("/api/recipes", json={"id":id,
                                                            "title":title,
                                                            "additional_text":additional_text,
                                                            "ingredients":ingredients,
@@ -121,8 +121,8 @@ def test_update_recipe(authorized_client, id, title, additional_text, ingredient
     assert response.status_code == status.HTTP_200_OK
 
 @pytest.mark.parametrize("id", recipes_delete_data)
-def test_delete_recipe(authorized_client, id):
-    response = authorized_client.delete(f"/api/recipes/{id}")
+def test_delete_recipe(authorized_client_1, id):
+    response = authorized_client_1.delete(f"/api/recipes/{id}")
     #print(response.json())
     assert response.status_code == status.HTTP_204_NO_CONTENT
 
