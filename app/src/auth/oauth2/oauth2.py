@@ -33,7 +33,8 @@ def verify_access_token(token: str, creds_exception, db: Session = Depends(datab
     except JWTError:
         raise creds_exception
     
-    blacklist_token = db.query(AuthModels.TokensBlacklist).filter(AuthModels.TokensBlacklist.access_token == token).first()
+    blacklist_token = db.query(AuthModels.TokensBlacklist).filter(
+        AuthModels.TokensBlacklist.access_token == token).first()
     if blacklist_token != None:
         raise creds_exception
 
