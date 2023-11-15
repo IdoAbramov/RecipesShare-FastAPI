@@ -1,6 +1,7 @@
 import logging
 import logging.config
 import sys
+from app.src.logging_conf import logging_config
 from app.src.logging import RouterLoggingMiddleware
 from fastapi import FastAPI, status
 from fastapi.responses import RedirectResponse
@@ -29,32 +30,6 @@ app.add_middleware(
     allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
     allow_headers=["*"]
 )
-
-# Logging configuration
-logging_config = {
-    "version": 1,
-    "formatters": {
-        "json": {
-            "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
-            "format": "%(asctime)s %(process)s %(levelname)s %(name)s %(module)s %(funcName)s %(lineno)s"
-        }
-    },
-    "handlers": {
-        "console": {
-            "level": "INFO",
-            "class": "logging.StreamHandler",
-            "formatter": "json",
-            "stream": sys.stderr,
-        }
-    },
-    "root": {
-        "level": "INFO",
-        "handlers": [
-            "console"
-        ],
-        "propagate": True
-    }
-}
 
 logging.config.dictConfig(logging_config)
 
