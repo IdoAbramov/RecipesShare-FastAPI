@@ -1,10 +1,15 @@
+import sys
+
 # Logging configuration
 logging_config = {
     "version": 1,
     "formatters": {
         "json": {
             "class": "pythonjsonlogger.jsonlogger.JsonFormatter",
-            "format": "%(asctime)s %(process)s %(levelname)s %(name)s %(module)s %(funcName)s %(lineno)s"
+            "format": "[%(asctime)s] [%(levelname)s] \n LOG DATA:\n%(message)s\n"
+        },
+        "file": {
+            "format": "[%(asctime)s] [%(levelname)s] \n LOG DATA:\n%(message)s\n"
         }
     },
     "handlers": {
@@ -12,13 +17,20 @@ logging_config = {
             "level": "INFO",
             "class": "logging.StreamHandler",
             "formatter": "json",
-            "stream": sys.stderr,
+            "stream": sys.stdout,
+        },
+        "file": {
+            "level": "INFO",
+            "formatter": "file",
+            "class": "logging.FileHandler",
+            "encoding": "utf-8",
+            "filename": "app.log"
         }
     },
     "root": {
         "level": "INFO",
         "handlers": [
-            "console"
+            "console", "file"
         ],
         "propagate": True
     }

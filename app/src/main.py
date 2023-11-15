@@ -1,6 +1,5 @@
 import logging
 import logging.config
-import sys
 from app.src.logging_conf import logging_config
 from app.src.logging import RouterLoggingMiddleware
 from fastapi import FastAPI, status
@@ -36,7 +35,7 @@ logging.config.dictConfig(logging_config)
 # enable LOGGING
 app.add_middleware(
     RouterLoggingMiddleware,
-    logger=logging.getLogger(__name__)
+    logger=logging.getLogger()
 )
 
 @app.get("/", include_in_schema=False)
