@@ -99,7 +99,6 @@ class RouterLoggingMiddleware(BaseHTTPMiddleware):
         try:
             response: Response = await call_next(request)
 
-            # Kickback X-Request-ID
             response.headers["X-API-Request-ID"] = request_id
             return response
 
