@@ -1,5 +1,5 @@
 from typing import List
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from app.src.users import UsersSchemas
 
 ##### Ingredients #####
@@ -19,7 +19,7 @@ class IngredientData(IngredientBase):
 
 ##### Instructions #####
 class InstructionBase(BaseModel):
-    text: str
+    text: str = Field(min_length=5)
 
 class InstructionCreate(InstructionBase):
     pass
@@ -45,8 +45,8 @@ class TagData(TagBase):
 
 ##### Recipes #####
 class RecipeBase(BaseModel):
-    title: str
-    additional_text: str
+    title: str = Field(min_length=5, max_length=100)
+    additional_text: str = Field(min_length=5, max_length=400)
 
 class RecipeCreate(RecipeBase):
     ingredients: List[IngredientCreate]

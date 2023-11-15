@@ -1,9 +1,9 @@
 from typing import Optional
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, Field
 
 class UserCreate(BaseModel):
-    username: str
-    password: str
+    username: str = Field(min_length=10)
+    password: str = Field(min_length=10)
     email: EmailStr
     first_name: str
     last_name: str
