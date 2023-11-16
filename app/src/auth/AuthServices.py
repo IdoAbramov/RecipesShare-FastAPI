@@ -17,7 +17,7 @@ class AuthServices():
         
         if not AuthUtils.verify(user_creds.password, user.password):
             login_counter = self.auth_repo.get_login_attempts_counter(user.username)
-            if login_counter >= AuthConstants.MAX_ATTEMPTS:
+            if login_counter >= AuthConstants.MAX_LOGIN_ATTEMPTS:
                 raise AuthExceptions.TooManyLoginAttempts()
             
             self.auth_repo.increase_login_attempts_counter(username=user.username)
