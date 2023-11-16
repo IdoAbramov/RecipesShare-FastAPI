@@ -1,2 +1,5 @@
 REGULAR = 1
 ADMIN = 2
+
+
+MAX_ATTEMPTS = 5

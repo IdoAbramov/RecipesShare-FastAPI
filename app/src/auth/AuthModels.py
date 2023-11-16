@@ -13,3 +13,9 @@ class Role(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, nullable=False)
+
+class LoginAttempts(Base):
+    __tablename__ = "login_attempts"
+
+    username = Column(String, primary_key=True, nullable=False, unique=True)
+    counter = Column(Integer, nullable=False)

@@ -11,3 +11,7 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     id: Optional[int] = None
+
+class LoginAttempts(BaseModel):
+    username: str
+    counter: int
