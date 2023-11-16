@@ -30,14 +30,14 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
-logging.config.dictConfig(logging_config)
-
 # enable LOGGING
+logging.config.dictConfig(logging_config)
 app.add_middleware(
     RouterLoggingMiddleware,
     logger=logging.getLogger()
 )
 
+# Redirect to APIs page
 @app.get("/", include_in_schema=False)
 def home_page():
     response = RedirectResponse(url="/docs", status_code=status.HTTP_302_FOUND)
