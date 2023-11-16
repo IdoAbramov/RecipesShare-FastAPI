@@ -15,14 +15,14 @@ class AuthServices():
         if not user:
             raise AuthExceptions.InvalidCredentials()
         
-        if not AuthUtils.verify(user_creds.password, user.password):
-            login_counter = self.auth_repo.get_login_attempts_counter(user.username)
-            if login_counter >= AuthConstants.MAX_LOGIN_ATTEMPTS:
-                raise AuthExceptions.TooManyLoginAttempts()
-            
+        if not AuthUtils.verify(user_creds.password, user.password):            
             self.auth_repo.increase_login_attempts_counter(username=user.username)
             raise AuthExceptions.InvalidCredentials()
         
+        login_counter = self.auth_repo.get_login_attempts_counter(user.username)
+        if login_counter >= AuthConstants.MAX_LOGIN_ATTEMPTS:
+                raise AuthExceptions.TooManyLoginAttempts()
+
         access_token = oauth2.create_access_token(data={"user_id":user.id})
         self.auth_repo.delete_login_attempts(user_creds.username)
         return access_token
