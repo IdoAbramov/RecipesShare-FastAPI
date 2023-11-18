@@ -1,12 +1,11 @@
+from fastapi import FastAPI, status
+from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 import logging
 import logging.config
 from app.src.logging_conf import logging_config
 from app.src.logging import RouterLoggingMiddleware
-from fastapi import FastAPI, status
-from fastapi.responses import RedirectResponse
-from fastapi.middleware.cors import CORSMiddleware
-from app.src import database
-from app.src import constants
+from app.src import database, constants
 from app.src.auth import AuthRouter
 from app.src.users import UsersRouter
 from app.src.recipes import RecipesRouter
@@ -22,25 +21,22 @@ app = FastAPI(title=constants.APP_TITLE,
               swagger_ui_parameters={"syntaxHighlight.theme": "obsidian"})
 
 # enable CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
-    allow_headers=["*"]
-)
+app.add_middleware(CORSMiddleware,
+                   allow_origins=["*"],
+                   allow_credentials=True,
+                   allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
+                   allow_headers=["*"])
 
 # enable LOGGING
 logging.config.dictConfig(logging_config)
-app.add_middleware(
-    RouterLoggingMiddleware,
-    logger=logging.getLogger()
-)
+app.add_middleware(RouterLoggingMiddleware,
+                   logger=logging.getLogger())
 
 # Redirect to APIs page
 @app.get("/", include_in_schema=False)
 def home_page():
-    response = RedirectResponse(url="/docs", status_code=status.HTTP_302_FOUND)
+    response = RedirectResponse(url="/docs", 
+                                status_code=status.HTTP_302_FOUND)
     return response
 
 # Application routers

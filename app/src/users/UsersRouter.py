@@ -1,4 +1,5 @@
-from fastapi import status, Depends, APIRouter
+from fastapi import status, Depends, APIRouter, File, UploadFile
+import aiofiles
 from sqlalchemy.orm import Session
 from app.src.users import UsersConstants, UsersModels, UsersSchemas
 from app.src.users.UsersServices import UsersServices
@@ -45,4 +46,29 @@ async def update_user_info(user: UsersSchemas.UserUpdate,
                            current_user: UsersModels.User = Depends(oauth2.get_current_user)):
     user_to_update = UsersServices().update_exist_user_service(user, current_user.id)
     return user_to_update
+
+
+# Will be stored at AWS S3
+@router.post("/me/profile_picture")
+async def upload_profile_picture(file: UploadFile, 
+                                 current_user: UsersModels.User = Depends(oauth2.get_current_user)):
+    try:
+        contents = await file.read()
+        async with aiofiles.open(file.filename, 'wb') as f:
+            await f.write(contents)
+    except:
+        return {"message": "There was an error uploading the file"}
+    finally:
+        await file.close()
+
+    return {"pic name": file.filename}
+
+@router.get("/me/profile_picture")
+async def get_current_user_profile_picture(current_user: UsersModels.User = Depends(oauth2.get_current_user)):
+    pass
+
+@router.get("/{user_id}/profile_picture")
+async def get_users_profile_picture(user_id: int, 
+                                    current_user: UsersModels.User = Depends(oauth2.get_current_user)):
+    pass
 
