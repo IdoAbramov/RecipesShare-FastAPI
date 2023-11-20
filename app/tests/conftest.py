@@ -4,12 +4,13 @@ from app.src.main import app
 from app.src import database
 from app.src.auth.oauth2 import oauth2
 from app.src.recipes import RecipesModels, RecipesUtils
+from app.src import init_db
 
 @pytest.fixture(scope="session")
 def clear_db():
     database.Base.metadata.drop_all(bind=database.engine)
     database.Base.metadata.create_all(bind=database.engine)
-
+    init_db.initialize_database()
 
 ########## First Client User ##########
 @pytest.fixture(scope="session")

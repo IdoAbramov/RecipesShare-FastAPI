@@ -12,6 +12,7 @@ from app.src.recipes import RecipesRouter
 from app.src.reviews import ReviewsRouter
 from app.src.favorites import FavoritesRouter
 from app.src.follows import FollowsRouter
+from app.src import init_db
 
 database.Base.metadata.create_all(bind=database.engine)
 
@@ -38,6 +39,8 @@ def home_page():
     response = RedirectResponse(url="/docs", 
                                 status_code=status.HTTP_302_FOUND)
     return response
+
+init_db.initialize_database()
 
 # Application routers
 app.include_router(AuthRouter.router)
