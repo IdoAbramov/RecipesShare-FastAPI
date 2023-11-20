@@ -19,7 +19,7 @@ def client(clear_db):
 @pytest.fixture(scope="session")
 def test_user(client):
     user_data = {"username":"test_create_1", 
-                 "password":"123456", 
+                 "password":"123456123123", 
                  "email":"test_create_1@gmail.com",
                  "first_name":"test_1",
                  "last_name":"test_1",
