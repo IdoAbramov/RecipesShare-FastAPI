@@ -7,14 +7,14 @@ from app.src.recipes import RecipesModels, RecipesUtils
 from app.src import init_db
 
 @pytest.fixture(scope="session")
-def clear_db():
+def initialize_db():
     database.Base.metadata.drop_all(bind=database.engine)
     database.Base.metadata.create_all(bind=database.engine)
     init_db.initialize_database()
 
 ########## First Client User ##########
 @pytest.fixture(scope="session")
-def client(clear_db):
+def client(initialize_db):
     yield TestClient(app)
 
 @pytest.fixture(scope="session")

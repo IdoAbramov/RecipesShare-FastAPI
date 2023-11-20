@@ -19,6 +19,5 @@ def initialize_database():
         db.add(regular)
         db.commit()
 
-    except Exception as e:
-        print(e)
+    except:
         db.rollback()
