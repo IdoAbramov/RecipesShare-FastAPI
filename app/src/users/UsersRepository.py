@@ -30,12 +30,10 @@ class UsersRepository():
             self.db.refresh(user)
 
         except exc.IntegrityError as e:
-            print(e)
             self.db.rollback()
             raise UsersExceptions.UserAlreadyExist()
         
         except exc.SQLAlchemyError as e:
-            print(e)
             self.db.rollback()
             raise UsersExceptions.UserDatabaseError()
         
