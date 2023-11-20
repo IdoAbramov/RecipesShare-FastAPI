@@ -16,8 +16,8 @@ def test_create_new_user(client):
                                  "last_name":"test",
                                  "news_registered":"True"})
     print(response.json())
-    #globals.created_user_id = response.json()["id"]
-    #assert response.status_code == status.HTTP_201_CREATED
+    globals.created_user_id = response.json()["id"]
+    assert response.status_code == status.HTTP_201_CREATED
 
 # Tests login user
 
