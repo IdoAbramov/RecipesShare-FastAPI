@@ -13,4 +13,4 @@ class InvalidCredentials(HTTPException):
 class TooManyLoginAttempts(HTTPException):
     def __init__(self):
         super().__init__(status_code=status.HTTP_403_FORBIDDEN, 
-                         detail=f"Too many login attempts - user locked")
+                         detail=f"Too many login attempts - login forbidden")

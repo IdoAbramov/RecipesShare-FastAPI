@@ -22,8 +22,7 @@ class RouterLoggingMiddleware(BaseHTTPMiddleware):
         await self.set_body(request)
         response, response_dict = await self._log_response(call_next,
                                                            request,
-                                                           request_id
-                                                           )
+                                                           request_id)
         request_dict = await self._log_request(request)
         logging_dict["request"] = request_dict
         logging_dict["response"] = response_dict

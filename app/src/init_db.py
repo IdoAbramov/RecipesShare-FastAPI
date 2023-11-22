@@ -10,6 +10,7 @@ def initialize_database():
     if role:
         return
 
+    # Initialize the roles in DB on first time startup
     try:
         admin = AuthModels.Role(id=AuthConstants.RoleID.ADMIN.value,
                                 name=AuthConstants.RoleName.ADMIN.value)

@@ -14,6 +14,7 @@ SessionLocal = sessionmaker(autocommit=False,
 
 Base = declarative_base() # constructs a base for models
 
+# Session creator
 def get_db():
     db = SessionLocal()
     try:
