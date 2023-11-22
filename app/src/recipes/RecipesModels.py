@@ -22,7 +22,7 @@ class Recipe(Base):
 class Ingredient(Base):
     __tablename__ = "ingredients"
     
-    recipe_id = Column(Integer, ForeignKey("recipes.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"), primary_key=True, nullable=False)
     name = Column(String, primary_key=True, index=True)
     amount = Column(String)
     unit = Column(String)
@@ -32,7 +32,7 @@ class Ingredient(Base):
 class Instruction(Base):
     __tablename__ = "instructions"
     
-    recipe_id = Column(Integer, ForeignKey("recipes.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"), primary_key=True, nullable=False)
     step = Column(Integer, primary_key=True, index=True, nullable=False) 
     text = Column(String)
     
@@ -42,7 +42,7 @@ class Instruction(Base):
 class Tag(Base):
     __tablename__ = "tags"
 
-    recipe_id = Column(Integer, ForeignKey("recipes.id", ondelete="CASCADE"), primary_key=True, nullable=False)
+    recipe_id = Column(Integer, ForeignKey("recipes.id"), primary_key=True, nullable=False)
     tag = Column(String, primary_key=True, index=True, nullable=False)
 
     recipe = relationship("Recipe", back_populates="tags")

@@ -20,8 +20,6 @@ def test_create_new_user(client):
     assert response.status_code == status.HTTP_201_CREATED
 
 # Tests login user
-
-
 def test_login(client):
     response = client.post("/api/login",
                            data={"username":TEST_USERNAME, 
