@@ -75,6 +75,6 @@ class ReviewsRepository():
             review_query.delete()
             self.db.commit()
         
-        except exc.SQLAlchemyError as e:
+        except exc.SQLAlchemyError:
             self.db.rollback()
             raise ReviewsExceptions.ReviewDatabaseError()

@@ -29,11 +29,11 @@ class UsersRepository():
             self.db.commit()
             self.db.refresh(user)
 
-        except exc.IntegrityError as e:
+        except exc.IntegrityError:
             self.db.rollback()
             raise UsersExceptions.UserAlreadyExist()
         
-        except exc.SQLAlchemyError as e:
+        except exc.SQLAlchemyError:
             self.db.rollback()
             raise UsersExceptions.UserDatabaseError()
         

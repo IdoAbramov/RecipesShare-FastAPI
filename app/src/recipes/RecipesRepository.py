@@ -23,7 +23,7 @@ class RecipesRepository():
             self.db.commit()
             self.db.refresh(new_recipe)
 
-        except exc.IntegrityError as e:
+        except exc.IntegrityError:
             raise RecipesExceptions.RecipeDatabaseError()
         return new_recipe
 

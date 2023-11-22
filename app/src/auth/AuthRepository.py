@@ -35,6 +35,7 @@ class AuthRepository():
     def increase_login_attempts_counter(self, username: str):
         counter = self.get_login_attempts_counter(username)
         counter += 1
+        
         try:
             if counter == 1:
                 self.db.add(AuthModels.LoginAttempts(username=username, counter=counter))
@@ -46,6 +47,7 @@ class AuthRepository():
                 user_attempts_query.update(login_attempt.model_dump(),
                                            synchronize_session=False)
             self.db.commit()
+
         except:
             self.db.rollback()
             raise AuthExceptions.AuthDatabaseError()

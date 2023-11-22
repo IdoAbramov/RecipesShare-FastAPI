@@ -40,6 +40,7 @@ class FollowsRepository():
         try:
             self.db.add(new_user_follow)
             self.db.commit()
+            
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FollowsExceptions.FollowDatabaseError()
@@ -51,6 +52,7 @@ class FollowsRepository():
         try:
             follow_query.delete()
             self.db.commit()
+
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FollowsExceptions.FollowDatabaseError()
@@ -59,6 +61,7 @@ class FollowsRepository():
         try:
             self.db.add(new_tag_follow)
             self.db.commit()
+
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FollowsExceptions.FollowDatabaseError()
@@ -70,6 +73,7 @@ class FollowsRepository():
         try:
             follow_query.delete()
             self.db.commit()
+
         except exc.SQLAlchemyError:
             self.db.rollback()
             raise FollowsExceptions.FollowDatabaseError()
