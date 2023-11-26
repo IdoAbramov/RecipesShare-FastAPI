@@ -1,5 +1,5 @@
 from typing import List
-from sqlalchemy import exc
+from sqlalchemy import exc, or_
 from sqlalchemy.orm import Session
 from app.src import database
 from app.src.recipes import RecipesModels, RecipesSchemas, RecipesExceptions
@@ -83,3 +83,22 @@ class RecipesRepository():
 
         except exc.SQLAlchemyError:
             raise RecipesExceptions.RecipeDatabaseError()
+    
+    def get_recipes_data_by_search_expression(self, 
+                                              expression: str) -> List[RecipesModels.Recipe]:
+        recipes = self.db.query(
+            RecipesModels.Recipe
+        ).join(
+            RecipesModels.Ingredient, RecipesModels.Recipe.id == RecipesModels.Ingredient.recipe_id
+        ).join(
+            RecipesModels.Tag, RecipesModels.Recipe.id == RecipesModels.Tag.recipe_id
+        ).filter(
+            or_(
+                (RecipesModels.Recipe.title.like(f'%{expression}%')),
+                (RecipesModels.Recipe.additional_text.like(f'%{expression}%')),
+                (RecipesModels.Ingredient.name.like(f'%{expression}%')),
+                (RecipesModels.Tag.tag.like(f'%{expression}%'))
+                )
+        ).distinct().all()
+
+        return recipes

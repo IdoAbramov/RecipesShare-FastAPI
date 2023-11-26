@@ -77,8 +77,10 @@ class RecipesServices():
         tags = [RecipesModels.Tag(recipe_id=recipe.id,**tag.model_dump()) \
                          for tag in RecipesUtils.parse_tags_list(recipe.tags)]
 
-        recipe_updated = self.recipes_repo.update_recipe_data(recipe, ingredients, instructions, tags)
-
+        recipe_updated = self.recipes_repo.update_recipe_data(recipe, 
+                                                              ingredients, 
+                                                              instructions, 
+                                                              tags)
         return recipe_updated
     
     def delete_recipe_service(self, 
@@ -99,3 +101,8 @@ class RecipesServices():
         if not tag_model:
             RecipesExceptions.TagNotFound(tag)
         return tag_model
+
+    def search_recipe_by_expression_service(self, 
+                                            expression: str):
+        recipes = self.recipes_repo.get_recipes_data_by_search_expression(expression)
+        return recipes

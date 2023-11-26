@@ -1,8 +1,4 @@
 from passlib.context import CryptContext
-from sqlalchemy.orm import Session
-from app.src.users import UsersModels
-from fastapi import Depends
-from app.src.auth import AuthConstants
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
