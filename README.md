@@ -1,4 +1,6 @@
 Recipes sharing backend API using Python FastAPI and PostgreSQL.
+
+
 Features:
 * User management & authentication
 * Manage user's recipes 
