@@ -5,7 +5,7 @@ Features:
 * User management & authentication
 * Manage user's recipes 
 * Manage user's favorites
-* Review other users recipes
+* Review and rate other users recipes
 * Follow specific users and tags
 * Search recipes
 
