@@ -18,12 +18,14 @@ ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp":expire}) # it will take the current time + the time to expire and put it here. 
+    to_encode.update({"exp":expire}) 
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 
-def verify_access_token(token: str, creds_exception, db: Session = Depends(database.get_db)):
+def verify_access_token(token: str, 
+                        creds_exception: HTTPException, 
+                        db: Session = Depends(database.get_db)):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=ALGORITHM)
         id = payload.get("user_id")
@@ -40,7 +42,7 @@ def verify_access_token(token: str, creds_exception, db: Session = Depends(datab
 
     return token_data
     
-def get_current_user(token: str = Depends(oauth2_scheme), 
+def get_current_user(token: str = Depends(oauth2_scheme), # extracts the token from Authorization header
                      db: Session = Depends(database.get_db)):
     creds_exception = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
                                     detail="Could not verify token", 

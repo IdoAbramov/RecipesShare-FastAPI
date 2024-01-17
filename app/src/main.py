@@ -27,12 +27,12 @@ app.add_middleware(CORSMiddleware,
                    allow_credentials=True,
                    allow_methods=["GET", "POST", "PATCH", "PUT", "DELETE"],
                    allow_headers=["*"])
-
+'''
 # enable LOGGING
 logging.config.dictConfig(logging_config)
 app.add_middleware(RouterLoggingMiddleware,
                    logger=logging.getLogger())
-
+'''
 # Redirect to APIs page
 @app.get("/", include_in_schema=False)
 def home_page():

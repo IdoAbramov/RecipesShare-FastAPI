@@ -75,13 +75,24 @@ class RecipesRepository():
         return recipe_update
 
     def delete_recipe_data(self, recipe_id: int) -> None:
-        recipe_query = self.db.query(RecipesModels.Recipe).filter(RecipesModels.Recipe.id == recipe_id)
+        recipe_query = self.db.query(RecipesModels.Recipe).filter(
+            RecipesModels.Recipe.id == recipe_id)
+        recipe_ingredients_query = self.db.query(RecipesModels.Ingredient).filter(
+            RecipesModels.Ingredient.recipe_id == recipe_id)
+        recipe_instructions_query = self.db.query(RecipesModels.Instruction).filter(
+            RecipesModels.Instruction.recipe_id == recipe_id)
+        recipe_tags_query = self.db.query(RecipesModels.Tag).filter(
+            RecipesModels.Tag.recipe_id == recipe_id)
         
         try:
+            recipe_ingredients_query.delete()
+            recipe_instructions_query.delete()
+            recipe_tags_query.delete()
             recipe_query.delete()
             self.db.commit()
 
-        except exc.SQLAlchemyError:
+        except exc.SQLAlchemyError as e:
+            print(e)
             raise RecipesExceptions.RecipeDatabaseError()
     
     def get_recipes_data_by_search_expression(self, 

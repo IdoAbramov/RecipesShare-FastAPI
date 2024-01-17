@@ -3,7 +3,7 @@ from typing import List
 
 def validate_user_owner(recipe: RecipesModels.Recipe, user_id: int) -> None:
     if recipe.owner_id != user_id:
-        raise RecipesExceptions.InvalidOwnerError(recipe.id, user_id)
+        raise RecipesExceptions.InvalidRecipeOwnerError(recipe.id, user_id)
     
 def tags_delete_duplicates(tags: List[RecipesSchemas.TagData]) -> List[RecipesSchemas.TagData]:
         tags_list = [tag.tag for tag in tags]

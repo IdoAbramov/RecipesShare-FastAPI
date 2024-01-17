@@ -6,6 +6,7 @@ from app.src.auth.AuthServices import AuthServices
 
 router = APIRouter(tags=["Authentication"], prefix="/api")
 
+
 @router.post("/login")
 def login(user_creds: OAuth2PasswordRequestForm = Depends()):
     access_token = AuthServices().login_service(user_creds)

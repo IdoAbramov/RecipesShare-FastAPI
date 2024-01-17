@@ -1,5 +1,4 @@
 from fastapi import status, Depends, APIRouter, File, UploadFile
-import aiofiles
 from sqlalchemy.orm import Session
 from app.src.users import UsersConstants, UsersModels, UsersSchemas
 from app.src.users.UsersServices import UsersServices
